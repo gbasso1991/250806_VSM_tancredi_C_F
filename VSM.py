@@ -1,4 +1,4 @@
-#%% VSM muestras de Pablo Tancredi - Julio 2025
+#%% VSM muestras C y F de Pablo Tancredi - Julio 2025
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
@@ -72,28 +72,28 @@ m_F4 = data_F4[:, 1]  # emu
 
 
 #%% PLOTEO ALL
-fig, axs = plt.subplots(2, 1, figsize=(8, 8), sharex=True, sharey=True, constrained_layout=True)
+fig, (a,b) = plt.subplots(2, 1, figsize=(8, 8), sharex=True, sharey=True, constrained_layout=True)
 
 # Arriba: muestras C
-axs[0].plot(H_C1, m_C1, '.-', label='C1')
-axs[0].plot(H_C2, m_C2, '.-', label='C2')
-axs[0].plot(H_C3, m_C3, '.-', label='C3')
-axs[0].plot(H_C4, m_C4, '.-', label='C4')
-axs[0].set_ylabel('m (emu)')
-axs[0].legend()
-axs[0].grid()
-axs[0].set_title('Muestras C')
+a.plot(H_C1, m_C1, '.-', label='C1 raw')
+a.plot(H_C2, m_C2, '.-', label='C2 raw')
+a.plot(H_C3, m_C3, '.-', label='C3 raw')
+a.plot(H_C4, m_C4, '.-', label='C4 raw')
+a.set_ylabel('m (emu)')
+a.legend()
+a.grid()
+a.set_title('Muestras C')
 
 # Abajo: muestras F
-axs[1].plot(H_F1, m_F1, '.-', label='F1')
-axs[1].plot(H_F2, m_F2, '.-', label='F2')
-axs[1].plot(H_F3, m_F3, '.-', label='F3')
-axs[1].plot(H_F4, m_F4, '.-', label='F4')
-axs[1].set_ylabel('m (emu)')
-axs[1].set_xlabel('H (G)')
-axs[1].legend()
-axs[1].grid()
-axs[1].set_title('Muestras F')
+b.plot(H_F1, m_F1, '.-', label='F1 raw')
+b.plot(H_F2, m_F2, '.-', label='F2 raw')
+b.plot(H_F3, m_F3, '.-', label='F3 raw')
+b.plot(H_F4, m_F4, '.-', label='F4 raw')
+b.set_ylabel('m (emu)')
+b.set_xlabel('H (G)')
+b.legend()
+b.grid()
+b.set_title('Muestras F')
 
 plt.show()
 #%% Normalizo por masa de la muestra y ploteo
@@ -118,84 +118,40 @@ m_F2_norm = m_F2 / masa_F2 / Concentracion_mm
 m_F3_norm = m_F3 / masa_F3 / Concentracion_mm
 m_F4_norm = m_F4 / masa_F4 / Concentracion_mm
 
-fig, axs = plt.subplots(2, 1, figsize=(8, 8), sharex=True, sharey=True, constrained_layout=True)
+fig, (a,b) = plt.subplots(2, 1, figsize=(8, 8), sharex=True, sharey=True, constrained_layout=True)
 
 # Arriba: muestras C
-axs[0].plot(H_C1, m_C1_norm, '.-', label='C1')
-axs[0].plot(H_C2, m_C2_norm, '.-', label='C2')
-axs[0].plot(H_C3, m_C3_norm, '.-', label='C3')
-axs[0].plot(H_C4, m_C4_norm, '.-', label='C4')
-axs[0].set_ylabel('m (emu)')
-axs[0].legend()
-axs[0].grid()
-axs[0].set_title('Muestras C')
+a.plot(H_C1, m_C1_norm, '.-', label='C1')
+a.plot(H_C2, m_C2_norm, '.-', label='C2')
+a.plot(H_C3, m_C3_norm, '.-', label='C3')
+a.plot(H_C4, m_C4_norm, '.-', label='C4')
+a.set_ylabel('m (emu/g)')
+a.legend()
+a.grid()
+a.set_title('Muestras C')
 
 # Abajo: muestras F
-axs[1].plot(H_F1, m_F1_norm, '.-', label='F1')
-axs[1].plot(H_F2, m_F2_norm, '.-', label='F2')
-axs[1].plot(H_F3, m_F3_norm, '.-', label='F3')
-axs[1].plot(H_F4, m_F4_norm, '.-', label='F4')
-axs[1].set_ylabel('m (emu/g)')
-axs[1].set_xlabel('H (G)')
-axs[1].legend()
-axs[1].grid()
-axs[1].set_title('Muestras F')
+b.plot(H_F1, m_F1_norm, '.-', label='F1')
+b.plot(H_F2, m_F2_norm, '.-', label='F2')
+b.plot(H_F3, m_F3_norm, '.-', label='F3')
+b.plot(H_F4, m_F4_norm, '.-', label='F4')
+b.set_ylabel('m (emu/g)')
+b.set_xlabel('H (G)')
+b.legend()
+b.grid()
+b.set_title('Muestras F')
 plt.savefig('VSM_muestras_C_F.png', dpi=300)
 plt.show()
-
-#%% Nuevo gráfico 2x2 comparando Cn vs Fn
-fig2, axs2 = plt.subplots(2, 2, figsize=(12, 8), sharex=True, sharey=True, constrained_layout=True)
-
-# C1 vs F1
-axs2[0, 0].plot(H_C1, m_C1_norm, '.-', label='C1')
-axs2[0, 0].plot(H_F1, m_F1_norm, '.-', label='F1')
-axs2[0, 0].set_title('C1 / F1',loc='left')
-axs2[0, 0].legend()
-axs2[0, 0].grid()
-
-# C2 / F2
-axs2[0, 1].plot(H_C2, m_C2_norm, '.-', label='C2')
-axs2[0, 1].plot(H_F2, m_F2_norm, '.-', label='F2')
-axs2[0, 1].set_title('C2 / F2',loc='left')
-axs2[0, 1].legend()
-axs2[0, 1].grid()
-
-# C3 / F3
-axs2[1, 0].plot(H_C3, m_C3_norm, '.-', label='C3')
-axs2[1, 0].plot(H_F3, m_F3_norm, '.-', label='F3')
-axs2[1, 0].set_title('C3 / F3',loc='left')
-axs2[1, 0].legend()
-axs2[1, 0].grid()
-
-# C4 / F4
-axs2[1, 1].plot(H_C4, m_C4_norm, '.-', label='C4')
-axs2[1, 1].plot(H_F4, m_F4_norm, '.-', label='F4')
-axs2[1, 1].set_title('C4 / F4',loc='left')
-axs2[1, 1].legend()
-axs2[1, 1].grid()
-# Solo los ylabel en la columna izquierda, xlabel en la fila de abajo
-for i in range(2):
-    axs2[i, 0].set_ylabel('m (emu/g)')
-for j in range(2):
-    axs2[1, j].set_xlabel('H (G)')
-plt.savefig('VSM_muestras_C_F_comparacion.png', dpi=300)
-plt.show()
-
 #%% Curvas Anhistéricas y fit para todas las muestras C y F
-
 resultados_fit = {}
 H_fit_arrays = {}
 m_fit_arrays = {}
 
 for nombre, H, m in [
-    ('C1', H_C1, m_C1_norm),
-    ('C2', H_C2, m_C2_norm),
-    ('C3', H_C3, m_C3_norm),
-    ('C4', H_C4, m_C4_norm),
-    ('F1', H_F1, m_F1_norm),
-    ('F2', H_F2, m_F2_norm),
-    ('F3', H_F3, m_F3_norm),
-    ('F4', H_F4, m_F4_norm),
+    ('C1', H_C1, m_C1_norm), ('C2', H_C2, m_C2_norm),
+    ('C3', H_C3, m_C3_norm), ('C4', H_C4, m_C4_norm),
+    ('F1', H_F1, m_F1_norm), ('F2', H_F2, m_F2_norm),
+    ('F3', H_F3, m_F3_norm), ('F4', H_F4, m_F4_norm),
 ]:
     H_anhist, m_anhist = mt.anhysteretic(H, m)
     fit = fit3.session(H_anhist, m_anhist, fname=nombre, divbymass=False)
@@ -211,64 +167,96 @@ for nombre, H, m in [
     fit.update()
     fit.save()
     fit.print_pars()
-    resultados_fit[nombre] = {
-        'H_anhist': H_anhist,
-        'm_anhist': m_anhist,
-        'H_fit': fit.X,
-        'm_fit': fit.Y,
-        'fit': fit
-    }
+    # Obtengo la contribución lineal usando los parámetros del fit
+    C = fit.params['C'].value
+    dc = fit.params['dc'].value
+    linear_contrib = lineal(fit.X, C, dc)
+    m_fit_sin_lineal = fit.Y - linear_contrib
+    m_saturacion = ufloat(np.mean([max(m_fit_sin_lineal),-min(m_fit_sin_lineal)]), np.std([max(m_fit_sin_lineal),-min(m_fit_sin_lineal)]))
+    resultados_fit[nombre]={'H_anhist': H_anhist,
+                            'm_anhist': m_anhist,
+                            'H_fit': fit.X,
+                            'm_fit': fit.Y,
+                            'm_fit_sin_lineal': m_fit_sin_lineal,
+                            'linear_contrib': linear_contrib,
+                            'Ms':m_saturacion,
+                            'fit': fit}
+    
     H_fit_arrays[nombre] = fit.X
-    m_fit_arrays[nombre] = fit.Y - lineal(H_anhist, fit.params['C'].value, fit.params['dc'].value)
+    m_fit_arrays[nombre] = m_fit_sin_lineal
 
+#%% Ploteo VSM normalizado y fitting para cada muestra individualmente
+muestras = [
+    ('C1', H_C1, m_C1_norm),
+    ('C2', H_C2, m_C2_norm),
+    ('C3', H_C3, m_C3_norm),
+    ('C4', H_C4, m_C4_norm),
+    ('F1', H_F1, m_F1_norm),
+    ('F2', H_F2, m_F2_norm),
+    ('F3', H_F3, m_F3_norm),
+    ('F4', H_F4, m_F4_norm),]
+
+for idx, (nombre, H, m_norm) in enumerate(muestras):
+    fig, ax = plt.subplots(figsize=(8, 5), constrained_layout=True)
     
+    ax.plot(H, m_norm, '.-', label='VSM normalizado')
+    ax.plot(H_fit_arrays[nombre], m_fit_arrays[nombre], '-', label='Fitting')
     
+    # Ms con error a 2 cifras significativas
+    Ms = resultados_fit[nombre]['Ms']
+    # Formateo con 2 cifras significativas en el error
+    Ms_str = f"Ms = {Ms:.1uS} emu/g"
+    props = dict(boxstyle='round', facecolor='white', alpha=0.8)
+    ax.text(0.75, 0.5, Ms_str, transform=ax.transAxes, fontsize=12,
+            va='center',ha='center', bbox=props)
+    
+    ax.grid()
+    ax.legend()
+    ax.set_xlabel('H (G)')
+    ax.set_ylabel('m (emu/g)')
+    plt.suptitle('VSM normalizado y fitting '+nombre)
+    plt.savefig(f'VSM_normalizado_vs_fit_{nombre}.png', dpi=300)
+    plt.show()
+
+#plt.savefig('VSM_normalizado_vs_fit_por_muestra.png', dpi=300)
 #%% Ploteo fits 
-# Plot 2x1: Todas las C arriba, todas las F abajo, con fits
-fig, (a,b) = plt.subplots(2, 1, figsize=(8, 8), sharex=True, sharey=True, constrained_layout=True)
 
-# Arriba: muestras C
-for nombre in ['C1', 'C2', 'C3', 'C4']:
-    a.plot(resultados_fit[nombre]['H_anhist'], resultados_fit[nombre]['m_anhist'], '.', label=f'{nombre} data')
-    a.plot(resultados_fit[nombre]['H_fit'], resultados_fit[nombre]['m_fit'], '-', label=f'{nombre} fit')
+muestras_C = [
+    ('C1', H_C1, m_C1_norm),
+    ('C2', H_C2, m_C2_norm),
+    ('C3', H_C3, m_C3_norm),
+    ('C4', H_C4, m_C4_norm),]
+muestras_F = [
+    ('F1', H_F1, m_F1_norm),
+    ('F2', H_F2, m_F2_norm),
+    ('F3', H_F3, m_F3_norm),
+    ('F4', H_F4, m_F4_norm),]
+
+fig, (a, b) = plt.subplots(1, 2, figsize=(14, 5), sharex=True, sharey=True, constrained_layout=True)
+
+# Izquierda: muestras C
+for idx, (nombre, H, m_norm) in enumerate(muestras_C):
+    a.plot(H, m_norm, '.', label=nombre )
+    a.plot(H_fit_arrays[nombre], m_fit_arrays[nombre], '-', label=nombre+' Fitting')
+
 a.set_ylabel('m (emu/g)')
 a.legend(ncol=2)
 a.grid()
-a.set_title('Muestras C (Anhisteréticas y fits)')
+a.set_title('Muestras C')
+a.set_xlabel('H (G)')
 
-# Abajo: muestras F
-for nombre in ['F1', 'F2', 'F3', 'F4']:
-    b.plot(resultados_fit[nombre]['H_anhist'], resultados_fit[nombre]['m_anhist'], '.', label=f'{nombre} data')
-    b.plot(resultados_fit[nombre]['H_fit'], resultados_fit[nombre]['m_fit'], '-', label=f'{nombre} fit')
+# Derecha: muestras F
+for idx, (nombre, H, m_norm) in enumerate(muestras_F):
+    b.plot(H, m_norm, '.', label=nombre )
+    b.plot(H_fit_arrays[nombre], m_fit_arrays[nombre], '-', label=nombre+' Fitting')
+
 b.set_ylabel('m (emu/g)')
 b.set_xlabel('H (G)')
 b.legend(ncol=2)
 b.grid()
-b.set_title('Muestras F (Anhisteréticas y fits)')
+b.set_title('Muestras F')
 
 plt.savefig('VSM_fits_C_F.png', dpi=300)
-plt.show()
-
-# Plot 2x2: Comparación Cn vs Fn, con fits
-fig2, axs2 = plt.subplots(2, 2, figsize=(12, 8), sharex=True, sharey=True, constrained_layout=True)
-
-pares = [('C1', 'F1'), ('C2', 'F2'), ('C3', 'F3'), ('C4', 'F4')]
-for idx, (c, f) in enumerate(pares):
-    i, j = divmod(idx, 2)
-    axs2[i, j].plot(resultados_fit[c]['H_anhist'], resultados_fit[c]['m_anhist'], '.', label=f'{c} data')
-    axs2[i, j].plot(resultados_fit[c]['H_fit'], resultados_fit[c]['m_fit'], '-', label=f'{c} fit')
-    axs2[i, j].plot(resultados_fit[f]['H_anhist'], resultados_fit[f]['m_anhist'], '.', label=f'{f} data')
-    axs2[i, j].plot(resultados_fit[f]['H_fit'], resultados_fit[f]['m_fit'], '-', label=f'{f} fit')
-    axs2[i, j].set_title(f'{c} / {f}', loc='left')
-    axs2[i, j].legend(ncol=2)
-    axs2[i, j].grid()
-
-for i in range(2):
-    axs2[i, 0].set_ylabel('m (emu/g)')
-for j in range(2):
-    axs2[1, j].set_xlabel('H (G)')
-
-plt.savefig('VSM_fits_C_F_comparacion.png', dpi=300)
 plt.show()
 
 
